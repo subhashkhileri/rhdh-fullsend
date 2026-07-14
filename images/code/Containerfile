@@ -63,10 +63,7 @@ RUN npm install -g "playwright@${PLAYWRIGHT_VERSION}" \
     && mkdir -p "${PLAYWRIGHT_BROWSERS_PATH}" \
     && npx playwright install chromium --with-deps \
     && npx playwright --version \
-    && chmod -R 777 "${PLAYWRIGHT_BROWSERS_PATH}" \
-    && mkdir -p /sandbox/bin \
-    && ln -s /usr/bin/playwright /sandbox/bin/playwright \
-    && chmod 755 /sandbox/bin
+    && chmod -R 777 "${PLAYWRIGHT_BROWSERS_PATH}"
 
 # ---------------------------------------------------------------------------
 # openspec CLI — spec-driven development tooling.
