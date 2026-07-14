@@ -58,12 +58,15 @@ RUN mkdir -p "$COREPACK_HOME" \
 # installed via apt.
 ARG PLAYWRIGHT_VERSION=1.61.1
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
-    PLAYWRIGHT_BROWSERS_PATH=/opt/playwright-browsers
+    PLAYWRIGHT_BROWSERS_PATH=/sandbox/playwright-browsers
 RUN npm install -g "playwright@${PLAYWRIGHT_VERSION}" \
     && mkdir -p "${PLAYWRIGHT_BROWSERS_PATH}" \
     && npx playwright install chromium --with-deps \
     && npx playwright --version \
-    && chmod -R 755 "${PLAYWRIGHT_BROWSERS_PATH}"
+    && chmod -R 777 "${PLAYWRIGHT_BROWSERS_PATH}" \
+    && mkdir -p /sandbox/bin \
+    && ln -s /usr/bin/playwright /sandbox/bin/playwright \
+    && chmod 755 /sandbox/bin
 
 # ---------------------------------------------------------------------------
 # openspec CLI — spec-driven development tooling.
